@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miau Presentes - Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Miau Presentes - Admin</h1>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+        <li><a href="canecas.html">Canecas</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <h2>Adicionar Produto</h2>
+    <form id="adminForm" class="form-canecas">
+      <label for="name">Nome do Produto:</label>
+      <input type="text" id="name">
+
+      <label for="desc">Descrição:</label>
+      <input type="text" id="desc">
+
+      <label for="price">Preço (R$):</label>
+      <input type="number" id="price">
+
+      <label for="stock">Estoque:</label>
+      <input type="number" id="stock">
+
+      <label for="image">Imagem (URL):</label>
+      <input type="text" id="image">
+
+      <button type="button" onclick="addProduct()">Adicionar Produto</button>
+    </form>
+
+    <h3>Produtos Cadastrados</h3>
+    <div id="admin-products" class="product-list"></div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Miau Presentes - Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    const adminProducts = document.getElementById("admin-products");
+
+    function loadAdminProducts(){
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+      adminProducts.innerHTML = "";
+      if(products.length === 0){
+        adminProducts.innerHTML = "<p>Nenhum produto cadastrado.</p>";
+        return;
+      }
+      products.forEach((p,i)=>{
+        const div = document.createElement("div");
+        div.classList.add("product-card");
+        div.innerHTML = `
+          <img src="${p.image}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <strong>R$ ${p.price}</strong>
+          <p class="stock">Estoque: ${p.stock}</p>
+        `;
+        adminProducts.appendChild(div);
+      });
+    }
+
+    function addProduct(){
+      const name = document.getElementById("name").value;
+      const desc = document.getElementById("desc").value;
+      const price = document.getElementById("price").value;
+      const stock = document.getElementById("stock").value;
+      const image = document.getElementById("image").value;
+
+      if(!name || !desc || !price || !stock || !image){
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+      products.push({name, desc, price, stock, image});
+      localStorage.setItem("products", JSON.stringify(products));
+      loadAdminProducts();
+
+      document.getElementById("adminForm").reset();
+    }
+
+    loadAdminProducts();
+  </script>
+</body>
+</html>
