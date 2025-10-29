@@ -6,6 +6,78 @@
   <title>Produtos - Miau Presentes</title>
   <link rel="stylesheet" href="css/style.css">
   <script>
+
+    // Função utilitária para pegar o parâmetro 'q' (query) da URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // ===============================================
+      // 1. Lógica da Barra de Pesquisa (Redirecionamento)
+      // ===============================================
+      const searchButton = document.querySelector('.search-bar button');
+      const searchInput = document.querySelector('.search-bar input');
+      const performSearch = () => {
+          const query = searchInput.value.trim();
+          if (query) {
+              // Redireciona para a página de produtos e anexa o termo de pesquisa na URL
+              window.location.href = `produtos.html?q=${encodeURIComponent(query)}`;
+          } else {
+              // Se estiver vazio, apenas redireciona para a página de produtos (limpa a busca anterior)
+              window.location.href = `produtos.html`;
+          }
+      };
+      
+      if (searchButton && searchInput) {
+          searchButton.addEventListener('click', performSearch);
+          searchInput.addEventListener('keypress', (e) => {
+              if (e.key === 'Enter') {
+                  performSearch();
+              }
+          });
+      }
+
+      // ===============================================
+      // 2. Lógica para Exibir Resultados da Busca e Filtrar
+      // ===============================================
+      const searchQuery = getQueryParam('q');
+      const titleElement = document.querySelector('section h2');
+
+      if (searchQuery && titleElement) {
+          const normalizedQuery = decodeURIComponent(searchQuery).toLowerCase();
+          
+          // 2.1. Atualiza o título para "Resultados da busca"
+          titleElement.textContent = `Resultados da busca por: "${normalizedQuery}"`;
+
+          // 2.2. Lógica de Filtragem de Produtos (simples)
+          const productCards = document.querySelectorAll('.product-list .product-card');
+          let found = false;
+          
+          productCards.forEach(card => {
+              const name = card.querySelector('h3').textContent.toLowerCase();
+              // A descrição deve ser o <p> principal, não o de estoque (.stock)
+              const description = card.querySelector('p:not(.stock)').textContent.toLowerCase(); 
+              
+              // Verifica se o nome ou a descrição do produto contém o termo pesquisado
+              if (name.includes(normalizedQuery) || description.includes(normalizedQuery)) {
+                  card.style.display = 'block'; // Mostra o card
+                  found = true;
+              } else {
+                  card.style.display = 'none'; // Esconde se não for compatível
+              }
+          });
+          
+          // 2.3. Exibe mensagem de "não encontrado"
+          if (!found) {
+              titleElement.textContent = `Nenhum resultado encontrado para: "${normalizedQuery}"`;
+          }
+      } else if (titleElement) {
+          // Se não houver query na URL, usa o título padrão
+          titleElement.textContent = "Nossos Produtos";
+      }
+
     // Mostrar aviso de estoque baixo
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".stock").forEach(el => {
@@ -31,28 +103,48 @@
       }, options);
       faders.forEach(fader => observer.observe(fader));
     });
+
+    // Lógica do Menu Mobile 
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navList = document.querySelector('.nav-list');
+      if (menuToggle && navList) {
+          menuToggle.addEventListener('click', () => {
+              navList.classList.toggle('active');
+          });
+      }
+    });
+
   </script>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="logo-container">
-      <img src="Miau.jpg" alt="Logo Miau Presentes" class="logo">
-      <h1>Miau Presentes</h1>
+<header>
+    <a href="index.html" class="logo-link">
+        <div class="logo-container">
+            <img src="Miau.jpg" alt="Miau Presentes Logo" class="logo">
+            <h1>Miau Presentes</h1>
+        </div>
+    </a>
+    
+    <div class="search-bar">
+        <input type="text" placeholder="Buscar produtos, presentes, canecas...">
+        <button type="submit" aria-label="Buscar">🔍</button>
     </div>
+    
     <nav>
-      <ul class="nav-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="produtos.html">Produtos</a></li>
-        <li><a href="canecas.html">Canecas</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-      <div class="menu-toggle" onclick="document.querySelector('.nav-list').classList.toggle('active')">
-        <span></span><span></span><span></span>
-      </div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-list">
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="canecas.html">Canecas</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
     </nav>
-  </header>
+</header>
 
   <!-- Barra de Promoção -->
   <div class="promo-bar">✨ Frete grátis para compras acima de R$ 100,00! ✨</div>
