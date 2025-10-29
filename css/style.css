@@ -28,7 +28,7 @@ body {
   font-size: 0.95rem;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 999;
   transition: background 0.3s ease;
 }
 
@@ -170,16 +170,6 @@ header h1 {
 /* Estilos para telas até 900px (Tablet/Mobile) */
 @media (max-width: 900px) {
     
-  .logo-link {
-        order: 1; 
-    }
-
-    nav {
-        order: 2; /* Move o nav para a segunda posição, garantindo que vença a disputa visual */
-        position: relative; 
-        width: auto;
-    }
-
     /* 1. HEADER: Permite que os itens quebrem a linha */
     header {
         flex-wrap: wrap; 
@@ -189,7 +179,7 @@ header h1 {
     /* 2. BARRA DE PESQUISA: Visível e quebra a linha */
     .search-bar {
         display: flex; 
-        order: 3; /* Força a barra de pesquisa a ficar embaixo */
+        order: 4; /* Força a barra de pesquisa a ficar embaixo */
         width: 100%;
         max-width: none;
         margin: 10px 0 0 0; 
@@ -201,6 +191,7 @@ header h1 {
     /* 3. MENU TOGGLE (Os 3 pontinhos): Garante que esteja visível */
     .menu-toggle {
         display: flex; 
+        order: 2; /* Garante que fique ao lado do logo */
         position: relative;
         z-index: 1003;
     }
@@ -211,7 +202,6 @@ header h1 {
         position: absolute; 
         top: 100%; /* CHAVE: Garante que o menu comece logo abaixo da borda inferior do header */
         right: 15px; /* Alinha à direita, junto ao ícone */
-        z-index: 1002;
         
         /* Estilização */
         background: #75826a; 
@@ -222,7 +212,7 @@ header h1 {
         border-radius: 0 0 10px 10px;
         width: 180px; 
         box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-        z-index: 997;
+        z-index: 1002;
     }
 
     /* 5. LINKS DO MENU: Ajusta a cor e o padding para o dropdown */
