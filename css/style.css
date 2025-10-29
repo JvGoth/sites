@@ -40,16 +40,18 @@ body {
    HEADER E MENU
 =========================== */
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-color: #75826a;
+  border-bottom: 2px solid #00000070;
+  
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
   padding: 15px 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 999;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, top 0.3s ease;
 }
 
 header:hover {
@@ -58,9 +60,8 @@ header:hover {
 
 /* ===== LOGO + NOME ===== */
 .logo-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .logo {
@@ -74,9 +75,47 @@ header:hover {
 }
 
 header h1 {
-  margin: 0;
   font-size: 1.8rem;
-  color: #333;
+  color: #dba67b;
+  margin-left: 10px;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ===== BARRA DE PESQUISA (PROEMINENTE) ===== */
+.search-bar {
+    display: flex;
+    flex-grow: 1;
+    max-width: 500px;
+    margin: 0 30px;
+    border: 2px solid #dba67b;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.search-bar input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+}
+
+.search-bar button {
+    background: #dba67b;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background: #d47e38;
 }
 
 /* MENU */
@@ -123,6 +162,39 @@ header h1 {
 
 .menu-toggle.active span:nth-child(3) {
   transform: rotate(-45deg) translate(7px, -6px); 
+}
+
+@media (max-width: 900px) {
+    .search-bar {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px 15px;
+  }
+  
+  .logo-link {
+    order: 1;
+  }
+  
+  .menu-toggle {
+    order: 2;
+  }
+  
+  nav {
+      order: 3;
+      width: 100%;
+  }
+  
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -432,9 +504,6 @@ footer {
   transition: background 0.3s ease; /* Transição para footer */
 }
 
-footer:hover {
-  background: #dba67b; /* Muda cor no hover para interatividade */
-}
 
 /* ===========================
    CARROSSEL
