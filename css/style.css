@@ -190,7 +190,7 @@ header h1 {
     .menu-toggle {
         display: flex; 
         order: 2; /* Garante que fique ao lado do logo */
-        z-index: 1002;
+        z-index: 1003;
     }
 
     /* 4. NAV LIST (Menu suspenso): POSICIONAMENTO CORRIGIDO E ESTILO */
@@ -199,6 +199,7 @@ header h1 {
         position: absolute; 
         top: 100%; /* CHAVE: Garante que o menu comece logo abaixo da borda inferior do header */
         right: 15px; /* Alinha à direita, junto ao ícone */
+        z-index: 1002;
         
         /* Estilização */
         background: #75826a; 
