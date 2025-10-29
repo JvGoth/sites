@@ -46,5 +46,41 @@
   <footer>
     <p>&copy; 2025 Miau Presentes - Todos os direitos reservados</p>
   </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Lógica da Barra de Pesquisa (Redirecionamento)
+        const searchButton = document.querySelector('.search-bar button');
+        const searchInput = document.querySelector('.search-bar input');
+
+        const performSearch = () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = `produtos.html?q=${encodeURIComponent(query)}`;
+            } else {
+                 window.location.href = `produtos.html`;
+            }
+        };
+        
+        if (searchButton && searchInput) {
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
+
+        // Lógica do Menu Mobile 
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navList = document.querySelector('.nav-list');
+        if (menuToggle && navList) {
+            menuToggle.addEventListener('click', () => {
+                navList.classList.toggle('active');
+            });
+        }
+    });
+  </script>
+
 </body>
 </html>
