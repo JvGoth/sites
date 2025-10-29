@@ -184,12 +184,15 @@ header h1 {
         max-width: none;
         margin: 10px 0 0 0; 
         padding: 0 15px;
+        position: relative;
+        z-index: 100;
     }
     
     /* 3. MENU TOGGLE (Os 3 pontinhos): Garante que esteja visível */
     .menu-toggle {
         display: flex; 
         order: 2; /* Garante que fique ao lado do logo */
+        position: relative;
         z-index: 1003;
     }
 
