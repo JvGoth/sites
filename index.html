@@ -9,26 +9,33 @@
 <body>
   <!-- HEADER -->
   <header>
-    <div class="logo-container">
-      <img src="Miau.jpg" alt="Miau Presentes Logo" class="logo">
-      <h1>Miau Presentes</h1>
+    <a href="index.html" class="logo-link">
+        <div class="logo-container">
+            <img src="Miau.jpg" alt="Miau Presentes Logo" class="logo">
+            <h1>Miau Presentes</h1>
+        </div>
+    </a>
+    
+    <div class="search-bar">
+        <input type="text" placeholder="Buscar produtos, presentes, canecas...">
+        <button type="submit" aria-label="Buscar">🔍</button>
     </div>
+    
     <nav>
-      <div class="menu-toggle" id="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul class="nav-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="produtos.html">Produtos</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="contato.html">Contato</a></li>
-        <li><a href="canecas.html">Canecas</a></li>
-        <li><a href="admin.html">Admin</a></li>
-      </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-list">
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="canecas.html">Canecas</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
     </nav>
-  </header>
+</header>
 
   <!-- BARRA DE PROMOÇÃO -->
   <div class="promo-bar">🎉 Promoção: Frete grátis para compras acima de R$.x.! 🎁</div>
@@ -80,6 +87,32 @@
 
   <!-- SCRIPTS -->
   <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // ===============================================
+        // Lógica da Barra de Pesquisa (Redirecionamento)
+        // ===============================================
+        const searchButton = document.querySelector('.search-bar button');
+        const searchInput = document.querySelector('.search-bar input');
+
+        const performSearch = () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = `produtos.html?q=${encodeURIComponent(query)}`;
+            } else {
+                 window.location.href = `produtos.html`;
+            }
+        };
+        
+        if (searchButton && searchInput) {
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
+
     // Menu hambúrguer
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.querySelector('.nav-list');
@@ -163,6 +196,7 @@
 
     faders.forEach(fader => {
       appearOnScroll.observe(fader);
+      });
     });
   </script>
 </body>
