@@ -170,6 +170,16 @@ header h1 {
 /* Estilos para telas até 900px (Tablet/Mobile) */
 @media (max-width: 900px) {
     
+  .logo-link {
+        order: 1; 
+    }
+
+    nav {
+        order: 2; /* Move o nav para a segunda posição, garantindo que vença a disputa visual */
+        position: relative; 
+        width: auto;
+    }
+
     /* 1. HEADER: Permite que os itens quebrem a linha */
     header {
         flex-wrap: wrap; 
@@ -179,7 +189,7 @@ header h1 {
     /* 2. BARRA DE PESQUISA: Visível e quebra a linha */
     .search-bar {
         display: flex; 
-        order: 4; /* Força a barra de pesquisa a ficar embaixo */
+        order: 3; /* Força a barra de pesquisa a ficar embaixo */
         width: 100%;
         max-width: none;
         margin: 10px 0 0 0; 
@@ -191,7 +201,6 @@ header h1 {
     /* 3. MENU TOGGLE (Os 3 pontinhos): Garante que esteja visível */
     .menu-toggle {
         display: flex; 
-        order: 2; /* Garante que fique ao lado do logo */
         position: relative;
         z-index: 1003;
     }
