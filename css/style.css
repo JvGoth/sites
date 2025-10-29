@@ -199,9 +199,9 @@ header h1 {
     /* 4. NAV LIST (Menu suspenso): POSICIONAMENTO CORRIGIDO E ESTILO */
     .nav-list {
         display: none; /* Escondido por padrão */
-        position: absolute; 
-        top: 125px; /* CHAVE: Garante que o menu comece logo abaixo da borda inferior do header */
-        right: 15px; /* Alinha à direita, junto ao ícone */
+        position: relative; 
+        width: 100%; /* CHAVE: Garante que o menu comece logo abaixo da borda inferior do header */
+         /* Alinha à direita, junto ao ícone */
         
         /* Estilização */
         background: #75826a; 
@@ -663,4 +663,5 @@ footer {
 body * {
   animation: fadeInGlobal 0.5s ease forwards; /* Aplica fade-in a todos os elementos para carregamento mais legal */
 }
+
 
