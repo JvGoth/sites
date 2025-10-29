@@ -6,6 +6,42 @@
   <title>Canecas Personalizadas - Miau Presentes</title>
   <link rel="stylesheet" href="css/style.css">
   <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // ===============================================
+      // Lógica da Barra de Pesquisa (Redirecionamento)
+      // ===============================================
+      const searchButton = document.querySelector('.search-bar button');
+      const searchInput = document.querySelector('.search-bar input');
+
+      const performSearch = () => {
+          const query = searchInput.value.trim();
+          if (query) {
+              window.location.href = `produtos.html?q=${encodeURIComponent(query)}`;
+          } else {
+              // Se estiver vazio, apenas redireciona para a página de produtos
+              window.location.href = `produtos.html`;
+          }
+      };
+      
+      if (searchButton && searchInput) {
+          searchButton.addEventListener('click', performSearch);
+          searchInput.addEventListener('keypress', (e) => {
+              if (e.key === 'Enter') {
+                  performSearch();
+              }
+          });
+      }
+
+      // Lógica do Menu Mobile 
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navList = document.querySelector('.nav-list');
+      if (menuToggle && navList) {
+          menuToggle.addEventListener('click', () => {
+              navList.classList.toggle('active');
+          });
+      }
+
     document.addEventListener("DOMContentLoaded", () => {
       // Mostrar aviso de estoque baixo
       document.querySelectorAll(".stock").forEach(el => {
@@ -30,29 +66,40 @@
         });
       }, options);
       faders.forEach(fader => observer.observe(fader));
+      });
     });
   </script>
 </head>
 <body>
   <!-- Header -->
-  <header>
-    <div class="logo-container">
-      <img src="Miau.jpg" alt="Logo Miau Presentes" class="logo">
-      <h1>Miau Presentes</h1>
+<header>
+    <a href="index.html" class="logo-link">
+        <div class="logo-container">
+            <img src="Miau.jpg" alt="Miau Presentes Logo" class="logo">
+            <h1>Miau Presentes</h1>
+        </div>
+    </a>
+    
+    <div class="search-bar">
+        <input type="text" placeholder="Buscar produtos, presentes, canecas...">
+        <button type="submit" aria-label="Buscar">🔍</button>
     </div>
+    
     <nav>
-      <ul class="nav-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="produtos.html">Produtos</a></li>
-        <li><a href="canecas.html">Canecas</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-      <div class="menu-toggle" onclick="document.querySelector('.nav-list').classList.toggle('active')">
-        <span></span><span></span><span></span>
-      </div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-list">
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="canecas.html">Canecas</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
     </nav>
-  </header>
+</header>
 
   <!-- Barra de Promoção -->
   <div class="promo-bar">☕ Personalize sua caneca e surpreenda alguém especial!</div>
