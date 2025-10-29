@@ -42,7 +42,7 @@ body {
 header {
   background-color: #75826a;
   border-bottom: 2px solid #00000070;
-  flex-wrap: wrap;
+  display: flex;
   justify-content: space-between; 
   align-items: center;
   padding: 15px 20px;
@@ -163,111 +163,84 @@ header h1 {
   transform: rotate(-45deg) translate(7px, -6px); 
 }
 
+/* ===========================
+   RESPONSIVIDADE E CORREÇÃO DO MENU MOBILE
+=========================== */
+
+/* Estilos para telas até 900px (Tablet/Mobile) */
 @media (max-width: 900px) {
-    /* Layout do Header para mobile */
+    
+    /* 1. HEADER: Permite que os itens quebrem a linha */
     header {
-        /* Garante que logo e menu fiquem na primeira linha */
-        flex-wrap: wrap;
-        justify-content: space-between;
-        padding: 10px 15px;
+        flex-wrap: wrap; 
+        padding: 10px 15px; /* Adiciona um padding padrão no mobile */
     }
 
-    /* A barra de pesquisa ocupa a largura total abaixo do logo/menu */
+    /* 2. BARRA DE PESQUISA: Visível e quebra a linha */
     .search-bar {
-        order: 4; /* Move para o final (embaixo) */
+        display: flex; 
+        order: 4; /* Força a barra de pesquisa a ficar embaixo */
         width: 100%;
         max-width: none;
-        margin: 10px 0 0 0; /* Espaço para cima e laterais zero */
-        padding: 0 10px; /* Adiciona padding para afastar das bordas do header */
+        margin: 10px 0 0 0; 
+        padding: 0 15px;
     }
     
-    .search-bar input {
-        padding: 8px 15px; /* Ajuste o padding para ficar melhor no mobile */
-    }
-    
-    .search-bar button {
-        padding: 8px 15px;
-    }
-    
-    /* Ordem dos itens no header */
-    .logo-link {
-        order: 1;
-    }
-    
+    /* 3. MENU TOGGLE (Os 3 pontinhos): Garante que esteja visível */
     .menu-toggle {
-        order: 2;
-        /* Garante que o menu toggle esteja visível */
-        display: flex;
+        display: flex; 
+        order: 2; /* Garante que fique ao lado do logo */
     }
-    
-    nav {
-        order: 3;
-        width: 100%; /* Ocupa a largura total (não é estritamente necessário se o nav-list estiver absoluto, mas ajuda) */
-    }
-    
-    /* Configurações do Menu Hamburguer */
+
+    /* 4. NAV LIST (Menu suspenso): POSICIONAMENTO CORRIGIDO E ESTILO */
     .nav-list {
-        /* Torna o menu absoluto em relação ao header, mas o header precisa de position: relative */
+        display: none; /* Escondido por padrão */
         position: absolute; 
-        top: 100%; /* Começa logo abaixo do header */
-        right: 15px;
-        background: #75826a; /* Cor de fundo do menu */
+        top: 100%; /* CHAVE: Garante que o menu comece logo abaixo da borda inferior do header */
+        right: 15px; /* Alinha à direita, junto ao ícone */
+        
+        /* Estilização */
+        background: #75826a; 
         flex-direction: column;
-        align-items: stretch; /* Estica os itens para preencher */
+        align-items: flex-end; 
         gap: 0;
         padding: 10px 0;
         border-radius: 0 0 10px 10px;
-        box-shadow: 0 5px 5px rgba(0,0,0,0.2);
-        z-index: 998; /* Abaixo da promo-bar, acima do conteúdo */
-        width: 180px; /* Largura fixa para o menu suspenso */
+        width: 180px; 
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        z-index: 997;
     }
 
+    /* 5. LINKS DO MENU: Ajusta a cor e o padding para o dropdown */
     .nav-list li a {
-        padding: 10px 15px; /* Adiciona padding aos links */
-        display: block; /* Faz o link preencher a largura */
-        color: #fff; /* Muda a cor do texto no menu suspenso */
-    }
-
-    .nav-list li a:hover {
-        background: #616e55;
-        transform: none; /* Remove a translação no hover, pois não fica bom no menu suspenso */
+        color: #fff; /* Cor do link para contraste */
+        padding: 10px 15px; 
+        display: block; 
     }
     
-    .nav-list {
-        display: none;
-        animation: none; /* Remove a animação slideDown que estava causando problemas de posicionamento */
+    .nav-list li a:hover {
+        background: #616e55; 
+        color: #dba67b; 
+        transform: none; 
     }
 
+    /* 6. Ativação do Menu */
     .nav-list.active {
-        display: flex;
+        display: flex; 
     }
 }
 
-@media (max-width: 768px) {
-  .nav-list {
-    display: none;
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    background: #75826a;
-    flex-direction: column;
-    padding: 15px;
-    border-radius: 10px;
-    animation: slideDown 0.3s ease;
-  }
-
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .nav-list.active {
-    display: flex;
-  }
-
-  .menu-toggle {
-    display: flex;
-  }
+/* Estilos para Desktop (acima de 901px) */
+@media (min-width: 901px) {
+    /* Garante que o menu toggle (3 pontinhos) fique escondido no desktop */
+    .menu-toggle {
+        display: none;
+    }
+    /* Garante que o menu principal seja exibido em linha no desktop */
+    .nav-list {
+        display: flex !important; 
+        position: static; 
+    }
 }
 
 /* ===========================
