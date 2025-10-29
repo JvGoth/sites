@@ -42,8 +42,7 @@ body {
 header {
   background-color: #75826a;
   border-bottom: 2px solid #00000070;
-  
-  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between; 
   align-items: center;
   padding: 15px 20px;
@@ -165,36 +164,83 @@ header h1 {
 }
 
 @media (max-width: 900px) {
-    .search-bar {
-        display: none;
+    /* Layout do Header para mobile */
+    header {
+        /* Garante que logo e menu fiquem na primeira linha */
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 10px 15px;
     }
-}
 
-@media (max-width: 768px) {
-  header {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 10px 15px;
-  }
-  
-  .logo-link {
-    order: 1;
-  }
-  
-  .menu-toggle {
-    order: 2;
-  }
-  
-  nav {
-      order: 3;
-      width: 100%;
-  }
-  
-  .nav-list {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
+    /* A barra de pesquisa ocupa a largura total abaixo do logo/menu */
+    .search-bar {
+        order: 4; /* Move para o final (embaixo) */
+        width: 100%;
+        max-width: none;
+        margin: 10px 0 0 0; /* Espaço para cima e laterais zero */
+        padding: 0 10px; /* Adiciona padding para afastar das bordas do header */
+    }
+    
+    .search-bar input {
+        padding: 8px 15px; /* Ajuste o padding para ficar melhor no mobile */
+    }
+    
+    .search-bar button {
+        padding: 8px 15px;
+    }
+    
+    /* Ordem dos itens no header */
+    .logo-link {
+        order: 1;
+    }
+    
+    .menu-toggle {
+        order: 2;
+        /* Garante que o menu toggle esteja visível */
+        display: flex;
+    }
+    
+    nav {
+        order: 3;
+        width: 100%; /* Ocupa a largura total (não é estritamente necessário se o nav-list estiver absoluto, mas ajuda) */
+    }
+    
+    /* Configurações do Menu Hamburguer */
+    .nav-list {
+        /* Torna o menu absoluto em relação ao header, mas o header precisa de position: relative */
+        position: absolute; 
+        top: 100%; /* Começa logo abaixo do header */
+        right: 15px;
+        background: #75826a; /* Cor de fundo do menu */
+        flex-direction: column;
+        align-items: stretch; /* Estica os itens para preencher */
+        gap: 0;
+        padding: 10px 0;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+        z-index: 998; /* Abaixo da promo-bar, acima do conteúdo */
+        width: 180px; /* Largura fixa para o menu suspenso */
+    }
+
+    .nav-list li a {
+        padding: 10px 15px; /* Adiciona padding aos links */
+        display: block; /* Faz o link preencher a largura */
+        color: #fff; /* Muda a cor do texto no menu suspenso */
+    }
+
+    .nav-list li a:hover {
+        background: #616e55;
+        transform: none; /* Remove a translação no hover, pois não fica bom no menu suspenso */
+    }
+    
+    .nav-list {
+        display: none;
+        animation: none; /* Remove a animação slideDown que estava causando problemas de posicionamento */
+    }
+
+    .nav-list.active {
+        display: flex;
+    }
 }
 
 @media (max-width: 768px) {
