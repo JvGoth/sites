@@ -5,70 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Canecas Personalizadas - Miau Presentes</title>
   <link rel="stylesheet" href="css/style.css">
-  <script>
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // ===============================================
-      // Lógica da Barra de Pesquisa (Redirecionamento)
-      // ===============================================
-      const searchButton = document.querySelector('.search-bar button');
-      const searchInput = document.querySelector('.search-bar input');
-
-      const performSearch = () => {
-          const query = searchInput.value.trim();
-          if (query) {
-              window.location.href = `produtos.html?q=${encodeURIComponent(query)}`;
-          } else {
-              // Se estiver vazio, apenas redireciona para a página de produtos
-              window.location.href = `produtos.html`;
-          }
-      };
-      
-      if (searchButton && searchInput) {
-          searchButton.addEventListener('click', performSearch);
-          searchInput.addEventListener('keypress', (e) => {
-              if (e.key === 'Enter') {
-                  performSearch();
-              }
-          });
-      }
-
-      // Lógica do Menu Mobile 
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navList = document.querySelector('.nav-list');
-      if (menuToggle && navList) {
-          menuToggle.addEventListener('click', () => {
-              navList.classList.toggle('active');
-          });
-      }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // Mostrar aviso de estoque baixo
-      document.querySelectorAll(".stock").forEach(el => {
-        const qtd = parseInt(el.dataset.qtd);
-        if (qtd <= 5) {
-          el.textContent = `⚠ Restam apenas ${qtd} unidades!`;
-          el.style.display = "block";
-        } else {
-          el.style.display = "none";
-        }
-      });
-
-      // Fade-in animado
-      const faders = document.querySelectorAll(".fade-in");
-      const options = { threshold: 0.2 };
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-            obs.unobserve(entry.target);
-          }
-        });
-      }, options);
-      faders.forEach(fader => observer.observe(fader));
-      });
-    });
-  </script>
 </head>
 <body>
   <!-- Header -->
@@ -105,61 +41,60 @@
   <div class="promo-bar">☕ Personalize sua caneca e surpreenda alguém especial!</div>
 
   <!-- Seção de Canecas -->
-  <section>
-    <h2 class="fade-in">Canecas Personalizadas</h2>
-    <p class="fade-in">Monte sua caneca com fotos, frases ou artes exclusivas. Um presente único para qualquer ocasião!</p>
-    
-    <div class="product-list">
-      <div class="product-card fade-in">
-        <img src="imagens/caneca1.jpg" alt="Caneca com Nome">
-        <h3>Caneca com Nome</h3>
-        <p>Escolha seu nome e estilo favorito.</p>
-        <strong>R$ 35,00</strong>
-        <p class="stock" data-qtd="10"></p>
-        <a href="https://wa.me/553599879068?text=Olá! Quero comprar uma Caneca com Nome." target="_blank" class="buy-btn">Comprar pelo WhatsApp</a>
+    <main>
+    <section>
+      <h2 class="fade-in">Canecas Personalizadas</h2>
+      <p class="fade-in">Monte sua caneca com fotos, frases ou artes exclusivas. Um presente único para qualquer ocasião!</p>
+
+      <div class="product-list">
+        <div class="product-card fade-in">
+          <img src="imagens/caneca1.jpg" alt="Caneca com Nome">
+          <h3>Caneca com Nome</h3>
+          <p>Escolha seu nome e estilo favorito.</p>
+          <strong>R$ 35,00</strong>
+          <button class="add-to-cart" data-name="Caneca com Nome" data-price="35.00">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product-card fade-in">
+          <img src="imagens/caneca2.jpg" alt="Caneca com Foto">
+          <h3>Caneca com Foto</h3>
+          <p>Imprima aquela lembrança especial em sua caneca.</p>
+          <strong>R$ 39,00</strong>
+          <button class="add-to-cart" data-name="Caneca com Foto" data-price="39.00">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product-card fade-in">
+          <img src="imagens/caneca3.jpg" alt="Caneca Geek">
+          <h3>Caneca Geek</h3>
+          <p>Modelos divertidos para os apaixonados por séries e games.</p>
+          <strong>R$ 42,00</strong>
+          <button class="add-to-cart" data-name="Caneca Geek" data-price="42.00">Adicionar ao Carrinho</button>
+        </div>
       </div>
+    </section>
 
-      <div class="product-card fade-in">
-        <img src="imagens/caneca2.jpg" alt="Caneca com Foto">
-        <h3>Caneca com Foto</h3>
-        <p>Imprima aquela lembrança especial em sua caneca.</p>
-        <strong>R$ 39,00</strong>
-        <p class="stock" data-qtd="10"></p>
-        <a href="https://wa.me/553599879068?text=Olá! Quero comprar uma Caneca com Foto." target="_blank" class="buy-btn">Comprar pelo WhatsApp</a>
-      </div>
+    <!-- Formulário de Personalização -->
+    <section>
+      <h2 class="fade-in">Peça sua Caneca Personalizada</h2>
+      <form class="form-canecas fade-in">
+        <label for="nome">Nome / Frase na Caneca:</label>
+        <input type="text" id="nome" name="nome" placeholder="Digite o nome ou frase">
 
-      <div class="product-card fade-in">
-        <img src="imagens/caneca3.jpg" alt="Caneca Geek">
-        <h3>Caneca Geek</h3>
-        <p>Modelos divertidos para os apaixonados por séries e games.</p>
-        <strong>R$ 42,00</strong>
-        <p class="stock" data-qtd="10"></p>
-        <a href="https://wa.me/553599879068?text=Olá! Quero comprar uma Caneca Geek." target="_blank" class="buy-btn">Comprar pelo WhatsApp</a>
-      </div>
-    </div>
-  </section>
+        <label for="cor">Cor da Caneca:</label>
+        <select id="cor" name="cor">
+          <option>Branca</option>
+          <option>Preta</option>
+          <option>Vermelha</option>
+          <option>Azul</option>
+        </select>
 
-  <!-- Formulário de Personalização -->
-  <section>
-    <h2 class="fade-in">Peça sua Caneca Personalizada</h2>
-    <form class="form-canecas fade-in">
-      <label for="nome">Nome / Frase na Caneca:</label>
-      <input type="text" id="nome" name="nome" placeholder="Digite o nome ou frase">
+        <label for="imagem">Envie uma Imagem (opcional):</label>
+        <input type="file" id="imagem" name="imagem">
 
-      <label for="cor">Cor da Caneca:</label>
-      <select id="cor" name="cor">
-        <option>Branca</option>
-        <option>Preta</option>
-        <option>Vermelha</option>
-        <option>Azul</option>
-      </select>
-
-      <label for="imagem">Envie uma Imagem (opcional):</label>
-      <input type="file" id="imagem" name="imagem">
-
-      <button type="submit">Solicitar Orçamento</button>
-    </form>
-  </section>
+        <button type="submit">Solicitar Orçamento</button>
+      </form>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
@@ -169,5 +104,14 @@
   <!-- Botão WhatsApp Fixo -->
   <a href="https://wa.me/553599879068?text=Olá! Gostaria de personalizar uma caneca." 
      class="whatsapp-float" target="_blank">💬</a>
+
+       <!-- SCRIPTS -->
+  </script>
+    <script src="js/carrosel.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/estoque.js"></script>
+
 </body>
 </html>
