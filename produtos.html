@@ -5,116 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produtos - Miau Presentes</title>
   <link rel="stylesheet" href="css/style.css">
-  <script>
-
-    // Função utilitária para pegar o parâmetro 'q' (query) da URL
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // ===============================================
-      // 1. Lógica da Barra de Pesquisa (Redirecionamento)
-      // ===============================================
-      const searchButton = document.querySelector('.search-bar button');
-      const searchInput = document.querySelector('.search-bar input');
-      const performSearch = () => {
-          const query = searchInput.value.trim();
-          if (query) {
-              // Redireciona para a página de produtos e anexa o termo de pesquisa na URL
-              window.location.href = `produtos.html?q=${encodeURIComponent(query)}`;
-          } else {
-              // Se estiver vazio, apenas redireciona para a página de produtos (limpa a busca anterior)
-              window.location.href = `produtos.html`;
-          }
-      };
-      
-      if (searchButton && searchInput) {
-          searchButton.addEventListener('click', performSearch);
-          searchInput.addEventListener('keypress', (e) => {
-              if (e.key === 'Enter') {
-                  performSearch();
-              }
-          });
-      }
-
-      // ===============================================
-      // 2. Lógica para Exibir Resultados da Busca e Filtrar
-      // ===============================================
-      const searchQuery = getQueryParam('q');
-      const titleElement = document.querySelector('section h2');
-
-      if (searchQuery && titleElement) {
-          const normalizedQuery = decodeURIComponent(searchQuery).toLowerCase();
-          
-          // 2.1. Atualiza o título para "Resultados da busca"
-          titleElement.textContent = `Resultados da busca por: "${normalizedQuery}"`;
-
-          // 2.2. Lógica de Filtragem de Produtos (simples)
-          const productCards = document.querySelectorAll('.product-list .product-card');
-          let found = false;
-          
-          productCards.forEach(card => {
-              const name = card.querySelector('h3').textContent.toLowerCase();
-              // A descrição deve ser o <p> principal, não o de estoque (.stock)
-              const description = card.querySelector('p:not(.stock)').textContent.toLowerCase(); 
-              
-              // Verifica se o nome ou a descrição do produto contém o termo pesquisado
-              if (name.includes(normalizedQuery) || description.includes(normalizedQuery)) {
-                  card.style.display = 'block'; // Mostra o card
-                  found = true;
-              } else {
-                  card.style.display = 'none'; // Esconde se não for compatível
-              }
-          });
-          
-          // 2.3. Exibe mensagem de "não encontrado"
-          if (!found) {
-              titleElement.textContent = `Nenhum resultado encontrado para: "${normalizedQuery}"`;
-          }
-      } else if (titleElement) {
-          // Se não houver query na URL, usa o título padrão
-          titleElement.textContent = "Nossos Produtos";
-      }
-
-    // Mostrar aviso de estoque baixo
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll(".stock").forEach(el => {
-        const qtd = parseInt(el.dataset.qtd);
-        if (qtd <= 5) {
-          el.textContent = `⚠ Restam apenas ${qtd} unidades!`;
-          el.style.display = "block";
-        } else {
-          el.style.display = "none";
-        }
-      });
-
-      // Fade-in animado
-      const faders = document.querySelectorAll(".fade-in");
-      const options = { threshold: 0.2 };
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-            obs.unobserve(entry.target);
-          }
-        });
-      }, options);
-      faders.forEach(fader => observer.observe(fader));
-    });
-
-    // Lógica do Menu Mobile 
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navList = document.querySelector('.nav-list');
-      if (menuToggle && navList) {
-          menuToggle.addEventListener('click', () => {
-              navList.classList.toggle('active');
-          });
-      }
-    });
-
-  </script>
+  
 </head>
 <body>
 <header>
@@ -196,7 +87,6 @@
 
        <!-- SCRIPTS -->
   </script>
-    <script src="js/carrosel.js"></script>
     <script src="js/search.js"></script>
     <script src="js/animation.js"></script>
     <script src="js/menu.js"></script>
